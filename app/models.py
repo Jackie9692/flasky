@@ -7,11 +7,11 @@ from . import db, login_manager
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)  # 主键
-    username = db.Column(db.String(64), unique=True, index=True)  # 用户名
+    username = db.Column(db.String(64))  # 用户名
     password_hash = db.Column(db.String(128))  # 密码
     withdraw_password = db.Column(db.String(128))  # 提现密码
     # bank_account = db.Column(db.String(128)) #银行账号
-    mobile = db.Column(db.String(20))  # 手机号
+    mobile = db.Column(db.String(20), unique=True, index=True)  # 手机号
     address = db.Column(db.String(128))  # 居住地地址
 
     loan_applicaitons = db.relationship('Loan_application', backref='user', lazy='dynamic')
