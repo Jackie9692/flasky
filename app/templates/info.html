@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+    <div class="page-header info_header">
+        <h1>查看资料</h1>
+    </div>
+    <div class="info_table">
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>申请人</td>
+                <td></td>
+                <td>性别</td>
+                <td></td>
+                <td>婚姻状况</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>身份证号</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>银行账号</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>单位地址</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>单位电话</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>紧急联系人1</td>
+                <td></td>
+                <td>紧急联系人2</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
