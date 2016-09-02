@@ -4,12 +4,15 @@
 {% block title %}Flasky - Login{% endblock %}
 
 {% block page_content %}
-    <div class="page-header">
+    <div class="page-header register_header">
         <h1>注册</h1>
     </div>
-    <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
-        <a href="{{ url_for('main.register') }}">登录</a>
-        <a href="{{ url_for('main.verify_mobile') }}">获取验证码</a>
+    <div class="register_form">
+        <div class="register_box">
+            {{ wtf.quick_form(form) }}
+            <a class="register_btn" href="{{ url_for('main.verify_mobile') }}">发送验证</a>
+        </div>
+
+
     </div>
 {% endblock %}

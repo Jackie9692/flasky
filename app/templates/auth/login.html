@@ -4,11 +4,16 @@
 {% block title %}Flasky - Login{% endblock %}
 
 {% block page_content %}
-<div class="page-header">
+<div class="page-header login_header">
     <h1>登录</h1>
 </div>
-<div class="col-md-4">
-    {{ wtf.quick_form(form) }}
-    <a href="{{ url_for('main.register') }}">注册</a>
+<div class="login_form">
+
+    <div class="login_box">
+        {{ wtf.quick_form(form) }}
+        <a class="login_register" href="{{ url_for('main.register') }}">注册</a>
+    </div>
+
+
 </div>
 {% endblock %}

@@ -7,6 +7,8 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
 {% endblock %}
 
 {% block navbar %}
@@ -21,10 +23,10 @@
             </button>
             <a class="navbar-brand" href="{{ url_for('main.index') }}">首页</a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" style="position: relative">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">我要借款</a></li>
-                <li><a href="{{ url_for('main.index') }}">关于我们</a></li>
+                <li><a id="loan" href="{{ url_for('main.index') }}">我要借款</a></li>
+                <li><a id="aboutUs" href="{{ url_for('main.index') }}">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
@@ -34,6 +36,14 @@
                 {% endif %}
             </ul>
         </div>
+        <div id="mynav" class="mynav">
+            <ul>
+                <li><a href="{{ url_for('main.loan_apply_info') }}">查看资料</a></li>
+                <li><a href="{{ url_for('main.loan_apply_upload') }}">资料上传</a></li>
+                <li><a href="{{ url_for('main.loan_apply_amount') }}">查看额度</a></li>
+            </ul>
+        </div>
+
     </div>
 </div>
 {% endblock %}

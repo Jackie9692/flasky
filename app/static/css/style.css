@@ -1,10 +1,14 @@
 @charset "uff-8";
 
 body{
-    overflow: hidden;
+    overflow-x: auto;
+    min-width: 600px;
+    min-height: 400px;
 }
 /*image with no-border*/
-
+ul{
+    list-style: none;
+}
 a img,img{border:0;}
 
 a{text-decoration:none; color:#0098e0; outline:none; blr:expression(this.onFocus=this.blur())}
@@ -88,3 +92,103 @@ a.logo,a:visited.logo{background:url("../img/logo.png") no-repeat center center;
     border-radius: 5px;
     box-shadow: inset 1px 1px 10px 1px rgba(0,0,0,.1),5px 5px 10px 1px rgba(0,0,0,.1);
 }
+
+.mynav{
+    position: absolute;
+    left: 9%;
+    top: 85%;
+    width: 90px;
+    height: 120px;
+    background: #eee;
+    display: none;
+}
+.mynav ul{
+    margin: 0;
+    padding: 0;
+}
+.mynav li{
+    width: 100%;
+    height: 40px;
+}
+.mynav li a{
+    display: block;
+     width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #666;
+    letter-spacing: 1px;
+}
+.mynav li:nth-child(1) a,
+.mynav li:nth-child(2) a{
+    border-bottom: 1px solid #a9a9a9;
+}
+.mynav li a:hover{
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+}
+/*******登入注册页面css**/
+.register_header h1,
+.login_header h1{
+    text-align: center;
+    color: #696969;
+    margin: 30px 0 10px 0;
+}
+.register_form,
+.login_form{
+    position: absolute;
+    left:50%;
+    top:40%;
+    margin-left: -180px;
+    margin-top: -110px;
+    width: 25%;
+}
+.register_box,
+.login_box{
+    position: relative;
+}
+
+.register_box #submit,
+.login_box #submit{
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.login_box .login_register{
+    position: absolute;
+    right: 3px;
+    bottom: 37px;
+    color: #696969;
+    border: 1px solid #eee;
+    display: block;
+    width: 50px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.login_register:hover{
+    text-decoration: none;
+    border-color: #2aabd2;
+}
+
+.register_box .register_btn{
+    position: absolute;
+    right: 3px;
+    bottom: 52px;
+    border: 1px solid #eee;
+    display: block;
+    width: 80px;
+    height: 28px;
+    color: #fff;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 4px;
+    background: #333;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
