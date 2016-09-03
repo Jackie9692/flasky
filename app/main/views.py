@@ -3,7 +3,7 @@
 from flask import render_template, request, session, jsonify
 from . import main
 from .forms import RegisterFormContent
-from flask_login import login_required, flash
+from flask_login import login_required, flash, current_user
 
 from ..models import User
 from .. import db
@@ -123,22 +123,36 @@ def get_verification_code():
     })
 
 
-@main.route('/userInfo')  # 用户信息
+@main.route('/userInfo', methods={"POST"})  # 用户信息
 @login_required
 def userInfo():
-    return None
+    user = current_user._get_current_object()
+    return jsonify({
+        "userInfo": user.to_json()
+    })
 
 
-@main.route('/userInfo/edit')  # 用户信息修改
+@main.route('/applay_status')  # 用户
+@login_required
+def user_apply_status():
+    user = current_user._get_current_object()
+    return jsonify({
+        "apply_status": user.loan_app.apply_status
+    })
+
+
+@main.route('/userInfo/edit', methods={"POST"})  # 用户信息修改
 @login_required
 def userInfo_edit():
     return None
 
 
-@main.route('/find/password')  # 用户密码找回
+@main.route('/find/password', methods={"POST"})  # 用户密码找回
 @login_required
 def find_password():
-    return None
+    parameters = request.values
+
+    mobile = parameters.get("mobile")
 
 
 @main.route('/find/withdraw_password')  # 用户提现密码找回
@@ -156,17 +170,36 @@ def loan_apply_info():
 @main.route('/loan_apply/upload')  # 申请资料上传
 @login_required
 def loan_apply_upload():
-    return None
+    msg = ""
+    user = current_user._get_current_object()
+    if user.loan_app:
+        flash(msg)
+        return
+
+    parameters = request.values
+
+    apply_name = parameters.get("apply_name", type=str, default=None)
+    gender = parameters.get("gender", type=int, default=None)
+    marriage_status = parameters.get("marriage_status", type=str, default=None)
+    bank_name = parameters.get("bank_name", type=str, default=None)
+    bank_account = parameters.get("bank_name", type=str, default=None)
+    company_address = parameters.get("company_address", type=str, default=None)
+    company_mobile = parameters.get("company_mobile", type=str, default=None)
+    urgent_contacter1 = parameters.get("urgent_contacter1", type=str, default=None)
+    urgent_contacter2 = parameters.get("urgent_contacter2", type=str, default=None)
+
+    image1 = parameters.get("image1", type=str, default=None)
+    image2 = parameters.get("image2", type=str, default=None)
+    image3 = parameters.get("image3", type=str, default=None)
+    image4 = parameters.get("image4", type=str, default=None)
 
 
-@main.route('/loan_apply/amount')  # 申请状态额度
+@main.route('/loan_amount')  # 申请状态额度
 @login_required
 def loan_apply_amount():
-    return None
+    user = current_user._get_current_object()
+    return jsonify({
+        "loan_amount": user.loan_app.loan_amount
+    })
 
 
-    # @main.route('/getuser')
-    # def get_user():
-    # user = User.query.get(1)
-    # loan = Loan_application.query.get(1)
-    # return render_template('index.html')
