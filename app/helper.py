@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import random
-
+from .const import ALLOWED_EXTENSIONS
 
 def sendMesg(code=None, mobile=None, type=None):
     """ send message to the mobile
@@ -63,3 +63,5 @@ def passwordCheck(s):
         pass
     return result, msg
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS

@@ -46,3 +46,6 @@ venv
 
 #mitigration
 migrations
+
+#upload
+upload
