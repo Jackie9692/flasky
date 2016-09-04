@@ -9,8 +9,28 @@
     </div>
     <div class="register_form">
         <div class="register_box">
-            {#{{ wtf.quick_form(form) }}#}
-            {#<a class="register_btn" href="{{ url_for('main.verify_mobile') }}">发送验证</a>#}
+            <form action="" method="post" class="form" role="form">
+                <div class="form-group ">
+                    <label class="control-label" for="user_id">用户名</label>
+                    <input class="form-control" id="user_id" name="user_id" type="text" value="">
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="password0">密码</label>
+                    <input class="form-control" id="password0" name="password0" type="password" value="">
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="password1">再次输入密码</label>
+                    <input class="form-control" id="password1" name="password1" type="password" value="">
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="roll">验证码</label>
+                    <input class="form-control" id="roll" name="roll" type="text" value="">
+                </div>
+                <a class="register_btn" href="">发送验证</a>
+                <input class="btn btn-default" id="submit" name="submit" type="submit" value="提交">
+            </form>
+{#            {{ wtf.quick_form(form) }}#}
+{#            <a class="register_btn" href="{{ url_for('main.verify_mobile') }}">发送验证</a>#}
         </div>
     </div>
 {% endblock %}

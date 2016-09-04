@@ -95,7 +95,7 @@ a.logo,a:visited.logo{background:url("../img/logo.png") no-repeat center center;
 
 .mynav{
     position: absolute;
-    left: 9%;
+    left: 14%;
     top: 85%;
     width: 90px;
     height: 120px;
@@ -143,6 +143,7 @@ a.logo,a:visited.logo{background:url("../img/logo.png") no-repeat center center;
     margin-left: -180px;
     margin-top: -110px;
     width: 25%;
+    width: 360px;
 }
 .register_box,
 .login_box{
@@ -172,7 +173,8 @@ a.logo,a:visited.logo{background:url("../img/logo.png") no-repeat center center;
 
 .login_register:hover{
     text-decoration: none;
-    border-color: #2aabd2;
+    border-color: #f60;
+    color: #ff6600;
 }
 
 .register_box .register_btn{
@@ -192,3 +194,52 @@ a.logo,a:visited.logo{background:url("../img/logo.png") no-repeat center center;
     letter-spacing: 1px;
 }
 
+.login_fogit{
+    position: absolute;
+    right: 71px;
+    bottom: 37px;
+    color: #333;
+    display: block;
+    width: 60px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+}
+.login_fogit:hover{
+    text-decoration: none;
+    color: #ff6600;
+}
+/************************************************applyLoan.html资料上传************************************/
+.upload_header{
+    text-align: center;
+    color: #696969;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.upload_input{
+    width: 600px;
+    position: absolute;
+    top:15%;
+    left: 50%;
+    margin-left: -300px;
+}
+.form-inline .radio{
+    margin-left: 50px;
+}
+.btn{
+    width: 100%;
+    margin: 20px 0 60px 0;
+}
+
+/******************************************************额度查询*****************************************/
+.loan_amount_box{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    margin-left: -150px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: #62c462;
+}

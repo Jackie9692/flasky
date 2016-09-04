@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+    <div class="page-header upload_header">
+        <h1>资料上传</h1>
+    </div>
+    <div class="upload_input">
+        <form action="" method="post" class="form" role="form">
+            <div class="form-group ">
+                <label class="control-label" for="user_id">用户名</label>
+                <input class="form-control" id="user_id" name="user_id" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="apply_name">申请人</label>
+                <input class="form-control" id="apply_name" name="apply_name" type="text" value="">
+            </div>
+            <div class="form-group form-inline">
+                <label class="control-label" for="">性别</label>
+                <div class="radio" style="margin-left: 78px;">
+                  <label>
+                    <input type="radio" name="gender" id="gender1" value="0" checked>先生
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="gender" id="gender2" value="1">女士
+                  </label>
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <label class="control-label" for="">婚姻状况</label>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="marriage_status" id="marriage_status1" value="0" checked>未婚
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="marriage_status" id="marriage_status2" value="1">已婚
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="marriage_status" id="marriage_status2" value="2">离异
+                  </label>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="apply_identi">身份证号</label>
+                <input class="form-control" id="apply_identi" name="apply_identi" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="bank_name">银行名称</label>
+                <input class="form-control" id="bank_name" name="bank_name" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="bank_account">银行账号</label>
+                <input class="form-control" id="bank_account" name="bank_account" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="company_address">单位地址</label>
+                <input class="form-control" id="company_address" name="company_address" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="company_mobile">单位电话</label>
+                <input class="form-control" id="company_mobile" name="company_mobile" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="company_mobile">紧急联系人1</label>
+                <input class="form-control" id="company_mobile" name="company_mobile" type="text" value="">
+            </div>
+            <div class="form-group ">
+                <label class="control-label" for="urgent_contacter1">紧急联系人2</label>
+                <input class="form-control" id="urgent_contacter1" name="urgent_contacter1" type="text" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="image1">本人手持证件照</label>
+                <input type="file" id="image1">
+            </div>
+            <div class="form-group">
+                <label for="image2">身份证正面照</label>
+                <input type="file" id="image2">
+            </div>
+            <div class="form-group">
+                <label for="image3">身份证正面照</label>
+                <input type="file" id="image3">
+            </div>
+            <div class="form-group">
+                <label for="image4">证明材料</label>
+                <input type="file" id="image4">
+            </div>
+            <input class="btn btn-default" id="submit" name="submit" type="submit" value="提交">
+        </form>
+    </div>
+{% endblock %}

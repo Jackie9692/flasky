@@ -32,8 +32,8 @@ class DevelopmentConfig(Config):
     RELOAD = True
     SECRET_KEY = 'mysecretkeyvalue'
 
-    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/easy_loan?charset=utf8'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@localhost:3306/easy_loan?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/easy_loan?charset=utf8'
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@localhost:3306/easy_loan?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
