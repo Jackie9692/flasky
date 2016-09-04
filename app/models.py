@@ -14,8 +14,11 @@ class User(UserMixin, db.Model):
     mobile = db.Column(db.String(20), unique=True, index=True)  # 手机号
     address = db.Column(db.String(128))  # 居住地地址
 
-    loan_applicaitons = db.relationship('Loan_application', backref='user', lazy='dynamic')
+    loan_app_id = db.Column(db.Integer, db.ForeignKey("loan_application.id"))
+    loan_app = db.relationship('Loan_application', backref=db.backref("users", uselist=False))
 
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  # 外键关联 用户id
+    # user = db.relationship(User, uselist=False)
 
     @property
     def password(self):
@@ -32,6 +35,14 @@ class User(UserMixin, db.Model):
         return '<User %r>' % self.username
 
 
+    def to_json(self):
+        attrs = ('id', 'username', 'address', 'mobile', 'address')
+        json = {attr: self.__getattribute__(attr) for attr in attrs}
+        if self.loan_app:
+            json['load_app'] = self.loan_app.to_json()
+        return json
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -41,7 +52,7 @@ def load_user(user_id):
 class Loan_application(db.Model):
     __tablename__ = 'loan_application'
     id = db.Column(db.Integer, primary_key=True)  # 主键
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  # 外键关联 用户id
+
     apply_name = db.Column(db.String(64))  # 申请人
     gender = db.Column(db.SmallInteger)  # 性别 0：先生 1：女士
     marriage_status = db.Column(db.SmallInteger)  # 婚姻状况 0：未婚 1：已婚 2：离异
@@ -58,3 +69,13 @@ class Loan_application(db.Model):
     image4 = db.Column(db.String(128))  # 证明材料
     apply_status = db.Column(db.SmallInteger)  # 审核状态 0：待审核 1：未通过 2：通过
     loan_amount = db.Column(db.Integer)
+
+
+    def to_json(self):
+        attrs = (
+            'id', 'apply_name', 'gender', 'marriage_status', 'apply_identi', 'bank_name', 'bank_account',
+            'company_address',
+            'company_mobile', 'urgent_contacter1',
+            'urgent_contacter2', 'image1', 'image2', 'image3', 'image4', 'apply_status', 'loan_amount')
+        json = {attr: self.__getattribute__(attr) for attr in attrs}
+        return json

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
+import os
 
 UPLOAD_SIZE = 2 ** 24  # the maximum size of uploaded pictures
 TOKEN_TIME_OUT_MIN = 1000000  # token lifetime
@@ -46,3 +47,11 @@ class ErrNo():
 MSGSEND_MINTIME = 60  # minmal message send intervel time
 
 CODEVALID_MAXTIME = 60  # max mobile code valid time
+
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static')
+UPLOAD_FOLDER = os.path.join(UPLOAD_FOLDER, 'upload') #上传文件夹
+ALLOWED_EXTENSIONS=set(['txt','pdf','png','jpg','jpeg','gif'])
+
+ISOTIMEFORMAT='%Y%m%d%H%M%S' #图片命名

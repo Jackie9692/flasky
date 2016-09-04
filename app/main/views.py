@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from flask import render_template, request, session, jsonify
+from flask import render_template, request, session, jsonify, redirect
 from . import main
 from .forms import RegisterFormContent
-from flask_login import login_required, flash
+from flask_login import login_required, flash, current_user
 
-from ..models import User
+from ..models import User, Loan_application
 from .. import db
 
-from ..const import MSGSEND_MINTIME, ErrNo, CODEVALID_MAXTIME
-from ..helper import sendMesg, generate_verification_code, phoneCheck, passwordCheck
+from ..const import MSGSEND_MINTIME, ErrNo, CODEVALID_MAXTIME, UPLOAD_FOLDER, ISOTIMEFORMAT
+from ..helper import sendMesg, generate_verification_code, phoneCheck, passwordCheck, allowed_file
 from datetime import datetime
+import time
+
+import os
 
 
 @main.route('/')  # 首页
@@ -123,22 +126,36 @@ def get_verification_code():
     })
 
 
-@main.route('/userInfo')  # 用户信息
+@main.route('/userInfo', methods={"POST"})  # 用户信息
 @login_required
 def userInfo():
-    return None
+    user = current_user._get_current_object()
+    return jsonify({
+        "userInfo": user.to_json()
+    })
 
 
-@main.route('/userInfo/edit')  # 用户信息修改
+@main.route('/applay_status')  # 用户
+@login_required
+def user_apply_status():
+    user = current_user._get_current_object()
+    return jsonify({
+        "apply_status": user.loan_app.apply_status
+    })
+
+
+@main.route('/userInfo/edit', methods={"POST"})  # 用户信息修改
 @login_required
 def userInfo_edit():
     return None
 
 
-@main.route('/find/password')  # 用户密码找回
+@main.route('/find/password', methods={"POST"})  # 用户密码找回
 @login_required
 def find_password():
-    return None
+    parameters = request.values
+
+    mobile = parameters.get("mobile")
 
 
 @main.route('/find/withdraw_password')  # 用户提现密码找回
@@ -153,20 +170,102 @@ def loan_apply_info():
     return None
 
 
-@main.route('/loan_apply/upload')  # 申请资料上传
+@main.route('/loan_apply/upload', methods={"POST", "GET"})  # 申请资料上传
 @login_required
 def loan_apply_upload():
-    return None
+    if request.method == 'GET':
+        return render_template("applyLoan.html")
+    else:
+        msg = ""
+        success = False
+
+        user = current_user._get_current_object()
+        if user.loan_app:
+            msg = "已提交申请，审核中"
+            return jsonify({
+                "success": success,
+                "msg": msg
+            })
+
+        parameters = request.values
+        images = request.files
+
+        if len(parameters) < 9 or len(images) < 4:  # 参数必须全部含有
+            msg = ErrNo.PARAM
+            return jsonify({
+                "success": success,
+                "msg": msg
+            })
+
+        apply_name = parameters.get("apply_name", type=str, default=None)
+        gender = parameters.get("gender", type=int, default=None)
+        marriage_status = parameters.get("marriage_status", type=str, default=None)
+        bank_name = parameters.get("bank_name", type=str, default=None)
+        bank_account = parameters.get("bank_account", type=str, default=None)
+        company_address = parameters.get("company_address", type=str, default=None)
+        company_mobile = parameters.get("company_mobile", type=str, default=None)
+        urgent_contacter1 = parameters.get("urgent_contacter1", type=str, default=None)
+        urgent_contacter2 = parameters.get("urgent_contacter2", type=str, default=None)
+
+        image1 = images.get("image1", default=None)
+        image2 = images.get("image2", default=None)
+        image3 = images.get("image3", default=None)
+        image4 = images.get("image4", default=None)
+
+        loan = Loan_application()
+        loan.apply_name = apply_name
+        loan.gender = gender
+        loan.marriage_status = marriage_status
+        loan.bank_name = bank_name
+        loan.bank_account = bank_account
+        loan.company_address = company_address
+        loan.company_mobile = company_mobile
+        loan.urgent_contacter1 = urgent_contacter1
+        loan.urgent_contacter2 = urgent_contacter2
+
+        if image1 and allowed_file(image1.filename):
+            suffix = "." + image1.filename.rsplit('.', 1)[1]
+            filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
+            image1.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        if image2 and allowed_file(image2.filename):
+            suffix = "." + image1.filename.rsplit('.', 1)[1]
+            filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
+            image2.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        if image3 and allowed_file(image3.filename):
+            suffix = "." + image1.filename.rsplit('.', 1)[1]
+            filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
+            image3.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        if image4 and allowed_file(image4.filename):
+            suffix = "." + image1.filename.rsplit('.', 1)[1]
+            filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
+            image4.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        try:
+            db.session.add(loan)
+            db.session.commit()
+            success = True
+            msg = "申请成功，敬请期待"
+        except Exception as e:
+            msg = msg + str(e)
+            return jsonify({
+                "success": success,
+                "msg": msg
+            })
+
+        return jsonify({
+            "success": success,
+            "msg": msg
+        })
 
 
-@main.route('/loan_apply/amount')  # 申请状态额度
+@main.route('/loan_amount')  # 申请状态额度
 @login_required
 def loan_apply_amount():
-    return None
+    user = current_user._get_current_object()
+    return jsonify({
+        "loan_amount": user.loan_app.loan_amount
+    })
 
-
-    # @main.route('/getuser')
-    # def get_user():
-    # user = User.query.get(1)
-    # loan = Loan_application.query.get(1)
-    # return render_template('index.html')
