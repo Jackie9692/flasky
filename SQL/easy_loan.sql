@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-09-04 13:45:55
+Date: 2016-09-04 14:01:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,17 +50,16 @@ CREATE TABLE `loan_application` (
   `image4` varchar(255) DEFAULT NULL,
   `apply_status` smallint(255) DEFAULT NULL,
   `loan_amount` int(11) DEFAULT NULL,
-  `mobile` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of loan_application
 -- ----------------------------
-INSERT INTO `loan_application` VALUES ('1', 'jackie', '0', '0', '362204199207202154', '工商银行', '11111122222333334444455555', '曹安公路', '02188938493', '李四+朋友+18817366807', '王五+朋友+18817366807', '20160903223949927865.png', '20160903223949927865.png', '3', '4', '0', '1000', null);
-INSERT INTO `loan_application` VALUES ('13', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', null, null, null, null, null, null, '');
-INSERT INTO `loan_application` VALUES ('14', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', null, null, null, null, null, null, '');
-INSERT INTO `loan_application` VALUES ('15', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', null, null, null, null, null, null, '18918278580');
+INSERT INTO `loan_application` VALUES ('15', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', null, null, null, null, '1', null, '');
+INSERT INTO `loan_application` VALUES ('16', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', '20160904135455671284.png', '20160904135455410597.png', '20160904135455265170.png', '20160904135455502793.png', '0', null, '');
+INSERT INTO `loan_application` VALUES ('17', 'jackie123', '0', '1', null, '交通银行', '123456789900', '曹安公路4800号', '1234566', '小明+17812982193821+基友', '小明+17812982193821+基友', '20160904135635756048.png', '20160904135635238745.png', '20160904135635180245.png', '20160904135635327184.png', '0', null, '18918278580');
 
 -- ----------------------------
 -- Table structure for users
@@ -76,8 +75,7 @@ CREATE TABLE `users` (
   `loan_app_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `mobile` (`mobile`),
-  KEY `loan_app_id` (`loan_app_id`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`loan_app_id`) REFERENCES `loan_application` (`id`)
+  KEY `loan_app_id` (`loan_app_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

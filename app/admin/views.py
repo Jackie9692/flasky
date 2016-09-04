@@ -47,7 +47,7 @@ class UserView(ViewRequireLogin):
     column_exclude_list = ['password_hash', 'address', 'loan_app']
     # column_list = ["id", 'address', 'loan_app']
     column_editable_list = ['withdraw_password']
-    column_searchable_list = ['id', 'username']
+    column_searchable_list = ['id', 'username', 'mobile']
     column_filters = ['username']
     column_display_pk = True
     column_display_all_relations = True
@@ -58,7 +58,7 @@ class LoanView(ViewRequireLogin):
     page_size = 10
     # column_exclude_list = ['password_hash']
     column_editable_list = ['id', 'loan_amount', 'apply_status']
-    column_searchable_list = ['id']
+    column_searchable_list = ['id', 'mobile']
     # column_display_pk = True
     column_display_all_relations = True
 

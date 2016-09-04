@@ -223,26 +223,31 @@ def loan_apply_upload():
         loan.company_mobile = company_mobile
         loan.urgent_contacter1 = urgent_contacter1
         loan.urgent_contacter2 = urgent_contacter2
+        loan.apply_status = 0
 
         if image1 and allowed_file(image1.filename):
             suffix = "." + image1.filename.rsplit('.', 1)[1]
             filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
             image1.save(os.path.join(UPLOAD_FOLDER, filename))
+            loan.image1 = filename
 
         if image2 and allowed_file(image2.filename):
             suffix = "." + image1.filename.rsplit('.', 1)[1]
             filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
             image2.save(os.path.join(UPLOAD_FOLDER, filename))
+            loan.image2 = filename
 
         if image3 and allowed_file(image3.filename):
             suffix = "." + image1.filename.rsplit('.', 1)[1]
             filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
             image3.save(os.path.join(UPLOAD_FOLDER, filename))
+            loan.image3 = filename
 
         if image4 and allowed_file(image4.filename):
             suffix = "." + image1.filename.rsplit('.', 1)[1]
             filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
             image4.save(os.path.join(UPLOAD_FOLDER, filename))
+            loan.image4 = filename
 
         user = current_user._get_current_object()
         mobile = user.mobile
