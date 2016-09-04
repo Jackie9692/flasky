@@ -180,7 +180,8 @@ def loan_apply_upload():
         success = False
 
         user = current_user._get_current_object()
-        if user.loan_app:
+        loan_app = Loan_application.query.filter(Loan_application.mobile == user.mobile).first()
+        if loan_app:
             msg = "已提交申请，审核中"
             return jsonify({
                 "success": success,
@@ -242,6 +243,10 @@ def loan_apply_upload():
             suffix = "." + image1.filename.rsplit('.', 1)[1]
             filename = str(time.strftime(ISOTIMEFORMAT)) + str(generate_verification_code()) + str(suffix)
             image4.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        user = current_user._get_current_object()
+        mobile = user.mobile
+        loan.mobile = mobile
 
         try:
             db.session.add(loan)

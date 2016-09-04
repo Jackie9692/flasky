@@ -14,11 +14,9 @@ class User(UserMixin, db.Model):
     mobile = db.Column(db.String(20), unique=True, index=True)  # 手机号
     address = db.Column(db.String(128))  # 居住地地址
 
-    loan_app_id = db.Column(db.Integer, db.ForeignKey("loan_application.id"))
-    loan_app = db.relationship('Loan_application', backref=db.backref("users", uselist=False))
+    # loan_app_id = db.Column(db.Integer, db.ForeignKey("loan_application.id"))
+    # loan_app = db.relationship('Loan_application', backref=db.backref("users", uselist=False))
 
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  # 外键关联 用户id
-    # user = db.relationship(User, uselist=False)
 
     @property
     def password(self):
@@ -70,12 +68,14 @@ class Loan_application(db.Model):
     apply_status = db.Column(db.SmallInteger)  # 审核状态 0：待审核 1：未通过 2：通过
     loan_amount = db.Column(db.Integer)
 
+    mobile = db.Column(db.String(20), unique=True)
+
 
     def to_json(self):
         attrs = (
             'id', 'apply_name', 'gender', 'marriage_status', 'apply_identi', 'bank_name', 'bank_account',
             'company_address',
             'company_mobile', 'urgent_contacter1',
-            'urgent_contacter2', 'image1', 'image2', 'image3', 'image4', 'apply_status', 'loan_amount')
+            'urgent_contacter2', 'image1', 'image2', 'image3', 'image4', 'apply_status', 'loan_amount', 'mobile')
         json = {attr: self.__getattribute__(attr) for attr in attrs}
         return json
