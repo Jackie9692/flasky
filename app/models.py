@@ -36,8 +36,9 @@ class User(UserMixin, db.Model):
     def to_json(self):
         attrs = ('id', 'username', 'address', 'mobile', 'address')
         json = {attr: self.__getattribute__(attr) for attr in attrs}
-        if self.loan_app:
-            json['load_app'] = self.loan_app.to_json()
+        # if self.loan_app:
+        #     pass
+        #     # json['load_app'] = self.loan_app.to_json()
         return json
 
 

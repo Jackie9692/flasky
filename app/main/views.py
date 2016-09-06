@@ -129,19 +129,47 @@ def get_verification_code():
 @main.route('/userInfo', methods={"POST"})  # 用户信息
 @login_required
 def userInfo():
+    success = False
+    msg = ""
     user = current_user._get_current_object()
-    return jsonify({
-        "userInfo": user.to_json()
-    })
+    if user:
+        success = True
+        msg = "get user infomation success"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+            "userInfo": user.to_json()
+        })
+    else:
+        msg = "fail to get user information"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+        })
 
 
-@main.route('/applay_status')  # 用户
+@main.route('/applay_status', methods={"POST"})  # 用户申请状态
 @login_required
 def user_apply_status():
+    success = False
+    msg = ""
     user = current_user._get_current_object()
-    return jsonify({
-        "apply_status": user.loan_app.apply_status
-    })
+    mobile = user.mobile
+    loan = Loan_application.query.filter(Loan_application.mobile == mobile).first()
+    if loan:
+        success = True
+        msg = "get loan application information success"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+            "apply_status": loan.apply_status
+        })
+    else:
+        msg = "fail to get loan application information success"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+        })
 
 
 @main.route('/userInfo/edit', methods={"POST"})  # 用户信息修改
@@ -164,10 +192,29 @@ def find_withdraw_password():
     return None
 
 
-@main.route('/loan_apply/info')  # 申请资料查看
+@main.route('/loan_apply/info', methods={"POST"})  # 申请资料查看
 @login_required
 def loan_apply_info():
-    return None
+    success = False
+    msg = ""
+    user = current_user._get_current_object()
+    mobile = user.mobile
+    loan = Loan_application.query.filter(Loan_application.mobile == mobile).first()
+    if loan:
+        success = True
+        msg = "get loan application information success"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+            "loan_infor": loan.to_json()
+        })
+    else:
+        msg = "fail to get loan application information success"
+        return jsonify({
+            "success": success,
+            "msg": msg,
+        })
+
 
 
 @main.route('/loan_apply/upload', methods={"POST", "GET"})  # 申请资料上传
