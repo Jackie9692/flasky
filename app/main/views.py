@@ -195,25 +195,28 @@ def find_withdraw_password():
 @main.route('/loan_apply/info', methods={"POST"})  # 申请资料查看
 @login_required
 def loan_apply_info():
-    success = False
-    msg = ""
-    user = current_user._get_current_object()
-    mobile = user.mobile
-    loan = Loan_application.query.filter(Loan_application.mobile == mobile).first()
-    if loan:
-        success = True
-        msg = "get loan application information success"
-        return jsonify({
-            "success": success,
-            "msg": msg,
-            "loan_infor": loan.to_json()
-        })
+    if request.method == 'GET':
+        return render_template("info.html")
     else:
-        msg = "fail to get loan application information success"
-        return jsonify({
-            "success": success,
-            "msg": msg,
-        })
+        success = False
+        msg = ""
+        user = current_user._get_current_object()
+        mobile = user.mobile
+        loan = Loan_application.query.filter(Loan_application.mobile == mobile).first()
+        if loan:
+            success = True
+            msg = "get loan application information success"
+            return jsonify({
+                "success": success,
+                "msg": msg,
+                "loan_infor": loan.to_json()
+            })
+        else:
+            msg = "fail to get loan application information success"
+            return jsonify({
+                "success": success,
+                "msg": msg,
+            })
 
 
 
