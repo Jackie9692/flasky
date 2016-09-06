@@ -192,11 +192,11 @@ def find_withdraw_password():
     return None
 
 
-@main.route('/loan_apply/info', methods={"POST"})  # 申请资料查看
+@main.route('/loan_apply/info', methods={"POST", "GET"})  # 申请资料查看
 @login_required
 def loan_apply_info():
     if request.method == 'GET':
-        return render_template("info.html")
+        return render_template("info.html", name="Jackie")
     else:
         success = False
         msg = ""
